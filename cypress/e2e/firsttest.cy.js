@@ -111,7 +111,7 @@ it('Reset password', () => {
   cy.get('.oxd-input').should('be.visible', 'Username').type('Admin')
 })
 
-it.only('Cancel reset password', () => {
+it('Cancel reset password', () => {
 
   cy.wait(4000)
   cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode')
@@ -119,5 +119,58 @@ it.only('Cancel reset password', () => {
   cy.get('.oxd-button--ghost').should('be.visible', 'Cancel').click()
 })
 
+it('Dropdown Profile - pass', ()=> {
 
+  cy.wait(4000)
+  cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
+  cy.wait(4000)
+  cy.get('input[name="username"]', customTimeout).should('be.visible').type('Admin')
+  cy.get('input[name="username"]', customTimeout).should('have.value', 'Admin')
+  cy.get('input[name="password"]', customTimeout).should('be.visible', 'Password').type('admin123')
+  cy.get('input[name="password"]', customTimeout).should('have.value', 'admin123')
+  cy.get('button[type="submit"]', customTimeout).contains(' Login ').click()
+  cy.get('.oxd-userdropdown-name').click()
+})
+
+it('Log out button', () => {
+
+  cy.wait(4000)
+  cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
+  cy.wait(4000)
+  cy.get('input[name="username"]', customTimeout).should('be.visible').type('Admin')
+  cy.get('input[name="username"]', customTimeout).should('have.value', 'Admin')
+  cy.get('input[name="password"]', customTimeout).should('be.visible', 'Password').type('admin123')
+  cy.get('input[name="password"]', customTimeout).should('have.value', 'admin123')
+  cy.get('button[type="submit"]', customTimeout).contains(' Login ').click()
+  cy.get('.oxd-userdropdown-name').click()
+  cy.get(':nth-child(4) > .oxd-userdropdown-link').click()
+})
+
+it('slide button', () => {
+
+  cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+  cy.wait(4000)
+  cy.get('input[name="username"]', customTimeout).should('be.visible').type('Admin')
+  cy.get('input[name="username"]', customTimeout).should('have.value', 'Admin')
+  cy.get('input[name="password"]', customTimeout).should('be.visible', 'Password').type('admin123')
+  cy.get('input[name="password"]', customTimeout).should('have.value', 'admin123')
+  cy.get('button[type="submit"]', customTimeout).contains(' Login ').click() 
+
+  cy.wait(4000)
+  cy.get('.oxd-main-menu-search > .oxd-icon-button > .oxd-icon').click()
+
+})
+
+it.only('Search bar', ()=> {
+
+  cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+  cy.wait(4000)
+  cy.get('input[name="username"]', customTimeout).should('be.visible').type('Admin')
+  cy.get('input[name="username"]', customTimeout).should('have.value', 'Admin')
+  cy.get('input[name="password"]', customTimeout).should('be.visible', 'Password').type('admin123')
+  cy.get('input[name="password"]', customTimeout).should('have.value', 'admin123')
+  cy.get('button[type="submit"]', customTimeout).contains(' Login ').click() 
+
+  cy.get('input[placeholder="Search"]', customTimeout).type('Winonna {enter}' )
+})
 })
